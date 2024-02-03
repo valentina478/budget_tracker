@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+<h1>Create new category</h1>
+  <form method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required> <br/>
+    <label for="name">Description</label>
+    <input type="text" name="description" id="description"> <br/>
+    <label for="name">Color</label>
+    <input type="color" name="color" id="color" value="#FFFFFF" required> <br/>
+
+    <button type="reset">Reset</button>
+    <button type="submit">Submit</button>
+    <h2><a href="{{ url_for('categories.get_categories') }}">Categories</a></h2>
+  </form>
+</body>
+</html>

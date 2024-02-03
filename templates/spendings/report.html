@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звіт про витрати</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Звіт про витрати</h2>
+
+    <label for="startDate">Select start date:</label>
+    <input type="datetime-local" id="startDate">
+
+    <label for="endDate">Select end date:</label>
+    <input type="datetime-local" id="endDate">
+
+    </br></br><button onclick="filterSpendings()">View spendings report</button>
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Spending</th>
+            <th>Spending/Income</th>
+        </tr>
+        </thead>
+        <tbody id="spendingTableBody">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var spendings = {{ spendings_dict | tojson | safe if spendings_dict is defined else 'null' }};
+
+    displayAllSpendings();
+
+    function displayAllSpendings() {
+        var spendingTableBody = document.getElementById("spendingTableBody");
+        spendingTableBody.innerHTML = ""; 
+
+        if (typeof spendings !== 'undefined' && spendings !== null) {
+            spendings.sort(function(a, b) {
+                return new Date(b.spend_date) - new Date(a.spend_date);
+            });
+
+            spendings.forEach(function(spending) {
+                var row = `<tr><td>${spending.name}</td><td>${spending.category_id}</td><td>${spending.spend_date}</td><td>${spending.spending}</td><td>${spending.is_spending}</td></tr>`;
+                spendingTableBody.innerHTML += row;
+            });
+        }
+    }
+
+    function filterSpendings() {
+        var startDateInput = document.getElementById("startDate");
+        var endDateInput = document.getElementById("endDate");
+
+        var startDate = new Date(startDateInput.value);
+        var endDate = new Date(endDateInput.value);
+
+        var filteredSpendings = spendings.filter(function(spending) {
+            var currentDate = new Date(spending.spend_date);
+            return currentDate >= startDate && currentDate <= endDate;
+        });
+
+        var spendingTableBody = document.getElementById("spendingTableBody");
+        spendingTableBody.innerHTML = ""; 
+        if (typeof filteredSpendings !== 'undefined' && filteredSpendings !== null) {
+            filteredSpendings.sort(function(a, b) {
+                return new Date(b.spend_date) - new Date(a.spend_date);
+            });
+
+            filteredSpendings.forEach(function(spending) {
+                var row = `<tr><td>${spending.name}</td><td>${spending.category_id}</td><td>${spending.spend_date}</td><td>${spending.spending}</td><td>${spending.is_spending}</td></tr>`;
+                spendingTableBody.innerHTML += row;
+            });
+        }
+    }
+</script>
+<h2><a href="{{ url_for('spendings.main_page_spendings') }}">Spendings</a></h2>
+
+</body>
+</html>

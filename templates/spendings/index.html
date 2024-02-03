@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Spendings</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    {% include 'main//nav.html' %}
+    <h1>Spendings</h1>
+    <h1><button><a href="{{ url_for('spendings.create_spending') }}">Create spending</a></button></h1>
+    <h1><button><a href="{{ url_for('spendings.report') }}">View report</a></button></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Spending</th>
+                <th>Spend/Income</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for spending in spendings_dict %}
+             <tr>
+                <td>{{ spending.name }}</td>
+                <td>{{ spending.category_id }}</td>
+                <td>{{ spending.spend_date }}</td>
+                <td>{{ spending.spending }}</td>
+                <td>{{ spending.is_spending }}</td>
+                <td><button><a href="{{ url_for('spendings.edit_spending', spending_id=spending.id) }}">Edit</a></button></td>
+                <td><button><a href="{{ url_for('spendings.delete_spending', spending_id=spending.id) }}">Delete</a></button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navi</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('/.get_index') }}">Home</a>
+        <a href="{{ url_for('categories.get_categories') }}">Categories</a>
+        <a href="{{ url_for('spendings.main_page_spendings') }}">Spendings</a>
+    </nav>
+</body>
+</html>
