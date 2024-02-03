@@ -39,10 +39,6 @@ class DefaultInterface:
 
 
 class CategoryDb(DefaultInterface):
-    #**Категорія**
-    # 1. Назва - Текст/варчар **req**
-    # 2. Детальний опис категорії - текст **not req**
-    # 3. Колір - варчар (default - some color)
     def create_default_table(self):
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS category (
@@ -103,12 +99,6 @@ class CategoryDb(DefaultInterface):
 
 class SpendingsDb(DefaultInterface):
     def create_default_table(self):
-        #1. Назва - Текст/варчар **req**
-        # 2. Категорія -  Це окрема табличка (тут буде id) **not req**
-        # 3. Дата - date **not req (default - today)**
-        # 4. Сума витрат/зарплати - float **req**
-        # 5. це Витрата/Зарплата - boolean (default - False)
-
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS spendings (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

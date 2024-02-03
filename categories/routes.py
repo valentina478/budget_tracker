@@ -38,7 +38,6 @@ def edit_category(category_id):
     if request.method == 'GET':
         category = db.get_category(id=category_id)
         if category:
-            # print(category)
             return render_template('categories/edit.html', name=category[0], description=category[1], color=category[2])
         abort(404)
     else:

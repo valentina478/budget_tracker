@@ -13,7 +13,6 @@ def main_page_spendings():
             "id": spending[0],
             "name": spending[1],
             "category_id": spending[2],
-            # "category_id": get_category_db().get_category(spending[2][0]),
             "spend_date": spending[3],
             "spending": spending[4],
             "is_spending": spending[5]
@@ -28,12 +27,9 @@ def create_spending():
     for category in categories:
         cats_names_dict[category[0]] = category[1]
     if request.method == 'GET':
-        # print(get_spending_db().get_spending(16))
-        # print(cats_names_dict)
         return render_template('spendings/create.html', categories_names=cats_names_dict)
     else:
         name = request.form.get('name')
-        # category_id = get_category_db().get_category(request.form.get('category_id'))[0]
         category_id = request.form.get('category_id')
         spend_date = request.form.get('spend_date')
         spending = request.form.get('spending')
@@ -78,7 +74,6 @@ def delete_spending(spending_id):
 
 @bp.route('/report')
 def report():
-    # print(get_spending_db().get_spending(3))
     spendings_dict = []
     for spending in get_spending_db().get_spendings():
         spendings_dict.append({
